@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md';
+import { FaPlay } from "react-icons/fa";
 
 const CategoryCarousel = ({ title, query }) => {
     const [data, setData] = useState([]);
-    const [loading, setLoading] = useState({});
+    const [isLoading, setIsLoading] = useState(true);
     const carouselRef = useRef(null);
 
     useEffect(() => {
@@ -17,15 +18,31 @@ const CategoryCarousel = ({ title, query }) => {
             .then((data) => {
                 const images = data.map(item => item?.show?.image?.original);
                 setData(images);
-                setLoading(images.reduce((acc, image, index) => {
-                    acc[image] = true;
-                    return acc;
-                }, {}));
+                setIsLoading(true); // Set loading state to true when data is being fetched
             })
             .catch((err) => {
                 console.error(err);
+                setIsLoading(false); // Set loading state to false if there's an error
             });
     }, [query]);
+
+    useEffect(() => {
+        if (data.length > 0) {
+            // Check if all images are loaded
+            const imagePromises = data.map(src =>
+                new Promise((resolve, reject) => {
+                    const img = new Image();
+                    img.src = src;
+                    img.onload = resolve;
+                    img.onerror = reject;
+                })
+            );
+
+            Promise.all(imagePromises)
+                .then(() => setIsLoading(false))
+                .catch(() => setIsLoading(false));
+        }
+    }, [data]);
 
     const handlePrevClick = () => {
         if (carouselRef.current) {
@@ -43,13 +60,6 @@ const CategoryCarousel = ({ title, query }) => {
                 behavior: 'smooth'
             });
         }
-    };
-
-    const handleImageLoad = (src) => {
-        setLoading(prevLoading => ({
-            ...prevLoading,
-            [src]: false
-        }));
     };
 
     return (
@@ -70,23 +80,24 @@ const CategoryCarousel = ({ title, query }) => {
                     ref={carouselRef}
                     className='carousel carousel-center gap-1 w-full mt-4 bg-transparent space-x-4 overflow-x-auto'
                 >
-                    {data.length > 0 ? (
+                    {isLoading ? (
+                        <div className='w-full h-[120px] md:h-[200px] lg:h-[300px] flex items-center justify-center'>
+                            <span className="loading loading-spinner bg-yellow-500 loading-md"></span>
+                        </div>
+                    ) : data.length > 0 ? (
                         data.map((image, index) => (
                             <div
                                 key={index}
                                 className='carousel-item relative h-[120px] md:h-[200px] lg:h-[300px]'
                             >
-                                {loading[image] && (
-                                    <div className='absolute inset-0 flex items-center justify-center'>
-                                        <span className="loading loading-spinner bg-yellow-500 loading-md"></span>
-                                    </div>
-                                )}
-                                <img
-                                    src={image}
-                                    alt={`movie`}
-                                    className='rounded-xl object-cover w-full h-full transition-shadow duration-300 hover:shadow-lg hover:border-[#dcec18] border-2 border-transparent'
-                                    onLoad={() => handleImageLoad(image)}
-                                />
+                                <div className='relative overflow-hidden rounded-xl border-2 border-transparent hover:border-[#dcec18]'>
+                                    <img
+                                        src={image}
+                                        alt={`movie`}
+                                        className='object-cover w-full h-full transition-shadow duration-300 hover:shadow-lg'
+                                    />
+                                    <div className='absolute inset-0 bg-black opacity-0 transition-opacity duration-300 hover:opacity-50'></div>
+                                </div>
                             </div>
                         ))
                     ) : (
@@ -98,7 +109,6 @@ const CategoryCarousel = ({ title, query }) => {
                             />
                         </div>
                     )}
-
                 </div>
 
                 <button
