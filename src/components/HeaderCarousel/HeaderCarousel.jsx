@@ -47,7 +47,7 @@ function HeroCarousel() {
         <div
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            className="relative flex items-center justify-center w-full px-4 lg:px-0"
+            className="relative flex items-center justify-center w-full px-4 lg:px-0 mb-20"
         >
             <button
                 className={`${mouseHover ? 'block' : 'hidden'
@@ -64,10 +64,10 @@ function HeroCarousel() {
                     <div className="text-center">Loading...</div>
                 ) : (
                     data.map((image, index) => (
-                        <div key={index} className="carousel-item w-[80vw] md:w-[60vw] lg:w-[62.5rem] h-[30vw] md:h-[10rem] lg:h-[23.438rem] flex-shrink-0">
+                        <div key={index} className="carousel-item w-[100vw] md:w-[60vw] lg:w-[62.5rem] h-[30vw] md:h-[10rem] lg:h-[23.438rem] flex-shrink-0">
                             <img
                                 src={image}
-                                className="rounded-box w-full h-full object-cover"
+                                className="rounded-box w-full h-full object-cover  hover:border-yellow-500 border-4 border-transparent"
                                 alt={`Carousel item ${index + 1}`}
                             />
                         </div>

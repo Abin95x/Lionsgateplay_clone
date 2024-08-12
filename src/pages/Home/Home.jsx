@@ -1,7 +1,7 @@
 import React from 'react'
 import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
-import HeroCarousel from '../../components/HeroCarousel/HeroCarousel'
+import HeaderCarousel from '../../components/HeaderCarousel/HeaderCarousel'
 import CategoryCarousel from '../../components/CategoryCarousel/CategoryCarousel'
 
 const Home = () => {
@@ -11,7 +11,8 @@ const Home = () => {
                 <Header />
             </div>
             <div className='min-h-screen '>
-                <HeroCarousel/>
+                <HeaderCarousel/>
+                <CategoryCarousel/>
                 <CategoryCarousel/>
                 <CategoryCarousel/>
                 <CategoryCarousel/>
