@@ -74,21 +74,23 @@ const CategoryCarousel = ({ title, query }) => {
                         data.map((image, index) => (
                             <div
                                 key={index}
-                                className='carousel-item h-[120px] md:h-[200px] lg:h-[300px] relative'
+                                className='carousel-item relative h-[120px] md:h-[200px] lg:h-[300px]'
                             >
                                 {loading[image] && (
-                                    <span className="loading loading-spinner bg-yellow-500 loading-md absolute inset-0 flex items-center justify-center z-10"></span>
+                                    <div className='absolute inset-0 flex items-center justify-center'>
+                                        <span className="loading loading-spinner bg-yellow-500 loading-md"></span>
+                                    </div>
                                 )}
                                 <img
                                     src={image}
-                                    alt={`Carousel item ${index}`}
+                                    alt={`movie`}
                                     className='rounded-xl object-cover w-full h-full transition-shadow duration-300 hover:shadow-lg hover:border-[#dcec18] border-2 border-transparent'
                                     onLoad={() => handleImageLoad(image)}
                                 />
                             </div>
                         ))
                     ) : (
-                        <div className='carousel-item h-[120px] md:h-[200px] lg:h-[300px]'>
+                        <div className='carousel-item relative h-[120px] md:h-[200px] lg:h-[300px]'>
                             <img
                                 src='https://via.placeholder.com/300'
                                 alt='Placeholder'
@@ -96,6 +98,7 @@ const CategoryCarousel = ({ title, query }) => {
                             />
                         </div>
                     )}
+
                 </div>
 
                 <button
