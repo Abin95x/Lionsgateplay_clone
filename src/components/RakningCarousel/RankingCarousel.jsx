@@ -4,12 +4,12 @@ import { one, two, three, four, five, six, seven, eight, ten } from '../../utils
 
 const staticImages = [one, two, three, four, five, six, seven, eight, ten];
 
-const RankingCarousel = () => {
+const RankingCarousel = ({ title, query }) => {
   const [data, setData] = useState([]);
   const carouselRef = useRef(null);
 
   useEffect(() => {
-    fetch('https://api.tvmaze.com/search/shows?q=girls')
+    fetch(`https://api.tvmaze.com/search/shows?q=${query}`)
       .then((res) => {
         if (!res.ok) {
           throw new Error('Network response was not ok');
@@ -17,7 +17,7 @@ const RankingCarousel = () => {
         return res.json();
       })
       .then((data) => {
-        setData(data.map(item => item.show.image.original));
+        setData(data.map(item => item?.show?.image?.original));
       })
       .catch((err) => {
         console.error(err);
@@ -49,73 +49,73 @@ const RankingCarousel = () => {
 
   return (
     <div className='relative ml-5 mb-12 md:ml-6 lg:ml-14'>
-    <h1 className='text-white text-base md:text-lg lg:text-2xl'>
-      Top 10 in India
-    </h1>
-  
-    <div className='relative group'>
-      <button
-        className='flex items-center justify-center absolute left-2 md:left-4 lg:left-5 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white h-8 w-8 md:h-10 md:w-10 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10'
-        onClick={handlePrevClick}
-      >
-        <MdArrowBackIos className='h-4 w-4 md:h-5 md:w-5' />
-      </button>
-  
-      <div
-        ref={carouselRef}
-        className='carousel carousel-center w-full mt-4 bg-transparent overflow-x-auto'
-      >
-        {combinedData.length > 0 ? (
-          combinedData.map(({ static: staticImg, movie }, index) => (
-            <div
-              key={index}
-              className='carousel-item flex items-center gap-2 h-[120px] md:h-[200px] lg:h-[270px] lg:w-[330px] hover:transition-transform duration-300 transform'
-            >
-              <div className='w-16 md:w-32 lg:w-48 h-10 md:h-40 lg:h-48 flex'>
+      <h1 className='text-white text-base md:text-lg lg:text-2xl'>
+        {title}
+      </h1>
+
+      <div className='relative group'>
+        <button
+          className='flex items-center justify-center absolute left-2 md:left-4 lg:left-5 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white h-8 w-8 md:h-10 md:w-10 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10'
+          onClick={handlePrevClick}
+        >
+          <MdArrowBackIos className='h-4 w-4 md:h-5 md:w-5' />
+        </button>
+
+        <div
+          ref={carouselRef}
+          className='carousel carousel-center w-full mt-4 bg-transparent overflow-x-auto'
+        >
+          {combinedData.length > 0 ? (
+            combinedData.map(({ static: staticImg, movie }, index) => (
+              <div
+                key={index}
+                className='carousel-item flex items-center gap-2 h-[120px] md:h-[200px] lg:h-[270px] lg:w-[330px] hover:transition-transform duration-300 transform'
+              >
+                <div className='w-16 md:w-32 lg:w-48 h-10 md:h-40 lg:h-48 flex'>
+                  <img
+                    src={staticImg}
+                    alt={`Static ${index}`}
+                    className='rounded-xl mt-2 md:mt-6 lg:mt-12 object-cover h-full'
+                  />
+                </div>
+                <div className='-ml-10 md:-ml-10 lg:-ml-20 h-16 md:h-48 lg:h-full'>
+                  <img
+                    src={movie}
+                    alt={`Movie ${index}`}
+                    className='rounded-xl object-cover w-full h-full transition-shadow duration-300 hover:shadow-lg hover:border-[#d1ff00] border-2 border-transparent'
+                  />
+                </div>
+              </div>
+            ))
+          ) : (
+            <div className='carousel-item flex items-center gap-2 h-[120px] md:h-[200px] lg:h-[300px]'>
+              <div className='w-16 h-16 flex items-center justify-center'>
                 <img
-                  src={staticImg}
-                  alt={`Static ${index}`}
-                  className='rounded-xl mt-2 md:mt-6 lg:mt-12 object-cover h-full'
+                  src='https://via.placeholder.com/150'
+                  alt='Placeholder Static'
+                  className='rounded-xl object-cover h-full'
                 />
               </div>
-              <div className='-ml-10 md:-ml-10 lg:-ml-20 h-16 md:h-48 lg:h-full'>
+              <div className='w-24 h-16 '>
                 <img
-                  src={movie}
-                  alt={`Movie ${index}`}
-                  className='rounded-xl object-cover w-full h-full transition-shadow duration-300 hover:shadow-lg hover:border-[#dcec18] border-2 border-transparent'
+                  src='https://via.placeholder.com/300'
+                  alt='Placeholder Movie'
+                  className='rounded-xl object-cover w-full h-full transition-shadow duration-300 hover:shadow-lg hover:border-[#d1ff00] border-2 border-transparent'
                 />
               </div>
             </div>
-          ))
-        ) : (
-          <div className='carousel-item flex items-center gap-2 h-[120px] md:h-[200px] lg:h-[300px]'>
-            <div className='w-16 h-16 flex items-center justify-center'>
-              <img
-                src='https://via.placeholder.com/150'
-                alt='Placeholder Static'
-                className='rounded-xl object-cover h-full'
-              />
-            </div>
-            <div className='w-24 h-16 '>
-              <img
-                src='https://via.placeholder.com/300'
-                alt='Placeholder Movie'
-                className='rounded-xl object-cover w-full h-full transition-shadow duration-300 hover:shadow-lg hover:border-[#dcec18] border-2 border-transparent'
-              />
-            </div>
-          </div>
-        )}
+          )}
+        </div>
+
+        <button
+          className='flex items-center justify-center absolute right-2 md:right-4 lg:right-5 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white h-8 w-8 md:h-10 md:w-10 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10'
+          onClick={handleNextClick}
+        >
+          <MdArrowForwardIos className='h-4 w-4 md:h-5 md:w-5' />
+        </button>
       </div>
-  
-      <button
-        className='flex items-center justify-center absolute right-2 md:right-4 lg:right-5 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white h-8 w-8 md:h-10 md:w-10 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10'
-        onClick={handleNextClick}
-      >
-        <MdArrowForwardIos className='h-4 w-4 md:h-5 md:w-5' />
-      </button>
     </div>
-  </div>
-  
+
   );
 };
 

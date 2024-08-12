@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md';
 
-const CategoryCarousel = () => {
+const CategoryCarousel = ({title,query}) => {
     const [data, setData] = useState([]);
     const carouselRef = useRef(null);
 
     useEffect(() => {
-        fetch('https://api.tvmaze.com/search/shows?q=girls')
+        fetch(`https://api.tvmaze.com/search/shows?q=${query}`)
             .then((res) => {
                 if (!res.ok) {
                     throw new Error('Network response was not ok');
@@ -14,7 +14,7 @@ const CategoryCarousel = () => {
                 return res.json();
             })
             .then((data) => {
-                setData(data.map(item => item.show.image.original));
+                setData(data.map(item => item?.show?.image?.original));
             })
             .catch((err) => {
                 console.error(err);
@@ -42,7 +42,7 @@ const CategoryCarousel = () => {
     return (
         <div className='relative ml-5 mb-12 md:ml-6 lg:ml-14'>
             <h1 className='text-white text-base md:text-lg lg:text-2xl'>
-                Premieres Of Lionsgate Play
+                {title}
             </h1>
 
             <div className='relative group'>

@@ -1,10 +1,21 @@
-import { useEffect, useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { MdArrowBackIos, MdArrowForwardIos } from "react-icons/md";
+import { one, two, three, four, five, six, seven, eight } from '../../utils/CarouselImg';
 
 function HeroCarousel() {
-    const [data, setData] = useState([]);
+    const staticImages = [one, two, three, four, five, six, seven, eight];
+
     const [mouseHover, setMouseHover] = useState(false);
     const carouselRef = useRef(null);
+    
+    // Automatically scroll every 5 seconds
+    useEffect(() => {
+        const interval = setInterval(() => {
+            handleNextClick();
+        }, 5000);
+
+        return () => clearInterval(interval); // Cleanup on unmount
+    }, []);
 
     const handleMouseEnter = () => setMouseHover(true);
     const handleMouseLeave = () => setMouseHover(false);
@@ -27,22 +38,6 @@ function HeroCarousel() {
         }
     };
 
-    useEffect(() => {
-        fetch('https://api.tvmaze.com/search/shows?q=girls')
-            .then((res) => {
-                if (!res.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return res.json();
-            })
-            .then((data) => {
-                setData(data.map(item => item.show.image.original));
-            })
-            .catch((err) => {
-                console.error(err);
-            });
-    }, []);
-
     return (
         <div
             onMouseEnter={handleMouseEnter}
@@ -60,19 +55,15 @@ function HeroCarousel() {
                 ref={carouselRef}
                 className="carousel carousel-center w-full rounded-box space-x-4 overflow-hidden"
             >
-                {data.length === 0 ? (
-                    <div className="text-center">Loading...</div>
-                ) : (
-                    data.map((image, index) => (
-                        <div key={index} className="carousel-item w-[100vw] md:w-[60vw] lg:w-[62.5rem] h-[30vw] md:h-[10rem] lg:h-[23.438rem] flex-shrink-0">
-                            <img
-                                src={image}
-                                className="rounded-box w-full h-full object-cover  hover:border-yellow-500 border-4 border-transparent"
-                                alt={`Carousel item ${index + 1}`}
-                            />
-                        </div>
-                    ))
-                )}
+                {staticImages.map((image, index) => (
+                    <div key={index} className="carousel-item w-[100vw] md:w-[60vw] lg:w-[62.5rem] h-[30vw] md:h-[10rem] lg:h-[23.438rem] flex-shrink-0">
+                        <img
+                            src={image}
+                            className="rounded-box w-full h-full object-cover hover:border-[#d1ff00] border-4 border-transparent"
+                            alt={`Carousel item ${index + 1}`}
+                        />
+                    </div>
+                ))}
             </div>
             <button
                 className={`${mouseHover ? 'block' : 'hidden'
@@ -82,7 +73,6 @@ function HeroCarousel() {
                 <MdArrowForwardIos className="h-4 w-4 md:h-5 md:w-5" />
             </button>
         </div>
-
     );
 }
 

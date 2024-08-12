@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md';
 
-const HeroCarousel = () => {
+const HeroCarousel = ({title, query}) => {
     const [data, setData] = useState([]);
     const carouselRef = useRef(null);
 
     useEffect(() => {
-        fetch('https://api.tvmaze.com/search/shows?q=girls')
+        fetch(`https://api.tvmaze.com/search/shows?q=${query}`)
             .then((res) => {
                 if (!res.ok) {
                     throw new Error('Network response was not ok');
@@ -42,7 +42,7 @@ const HeroCarousel = () => {
     return (
         <div className='relative ml-5 mb-12 md:ml-6 lg:ml-14'>
             <h1 className='text-white text-base md:text-lg lg:text-2xl'>
-                Coming Soon on Lionsgate Play
+               {title}
             </h1>
 
             <div className='relative group'>
@@ -66,7 +66,7 @@ const HeroCarousel = () => {
                                 <img
                                     src={image}
                                     alt={`Carousel item ${index}`}
-                                    className='rounded-xl object-cover w-full h-full transition-shadow duration-300 hover:shadow-lg hover:border-[#dcec18] border-2 border-transparent'
+                                    className='rounded-xl object-cover w-full h-full transition-shadow duration-300 hover:shadow-lg hover:border-[#d1ff00] border-2 border-transparent'
                                 />
                             </div>
                         ))
@@ -75,7 +75,7 @@ const HeroCarousel = () => {
                             <img
                                 src='https://via.placeholder.com/300'
                                 alt='Placeholder'
-                                className='rounded-lg object-cover w-full h-full transition-shadow duration-300 hover:shadow-lg hover:border-[#dcec18] border-4 border-transparent'
+                                className='rounded-lg object-cover w-full h-full transition-shadow duration-300 hover:shadow-lg hover:border-[#d1ff00] border-4 border-transparent'
                             />
                         </div>
                     )}
