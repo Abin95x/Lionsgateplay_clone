@@ -40,7 +40,6 @@ const CategoryCarousel = () => {
     };
 
     return (
-
         <div className='relative ml-5 mb-12 md:ml-6 lg:ml-14'>
             <h1 className='text-white text-base md:text-lg lg:text-2xl'>
                 Premieres Of Lionsgate Play
@@ -48,7 +47,7 @@ const CategoryCarousel = () => {
 
             <div className='relative group'>
                 <button
-                    className=' flex items-center justify-center absolute left-2 md:left-4 lg:left-5 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white h-8 w-8 md:h-10 md:w-10 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300'
+                    className='flex items-center justify-center absolute left-2 md:left-4 lg:left-5 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white h-8 w-8 md:h-10 md:w-10 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10'
                     onClick={handlePrevClick}
                 >
                     <MdArrowBackIos className='h-4 ml-2 w-4 md:h-5 md:w-5' />
@@ -56,7 +55,7 @@ const CategoryCarousel = () => {
 
                 <div
                     ref={carouselRef}
-                    className='carousel carousel-center gap-1 w-full mt-4 bg-transparent space-x-4'
+                    className='carousel carousel-center gap-1 w-full mt-4 bg-transparent space-x-4 overflow-x-auto'
                 >
                     {data.length > 0 ? (
                         data.map((image, index) => (
@@ -82,10 +81,8 @@ const CategoryCarousel = () => {
                     )}
                 </div>
 
-
-
                 <button
-                    className='flex items-center justify-center absolute right-2 md:right-4 lg:right-5 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white h-8 w-8 md:h-10 md:w-10 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300'
+                    className='flex items-center justify-center absolute right-2 md:right-4 lg:right-5 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white h-8 w-8 md:h-10 md:w-10 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10'
                     onClick={handleNextClick}
                 >
                     <MdArrowForwardIos className='h-4 w-4 md:h-5 md:w-5' />

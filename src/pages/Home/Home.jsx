@@ -3,6 +3,9 @@ import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
 import HeaderCarousel from '../../components/HeaderCarousel/HeaderCarousel'
 import CategoryCarousel from '../../components/CategoryCarousel/CategoryCarousel'
+import RankingCarousel from '../../components/RakningCarousel/RankingCarousel'
+import HeroCarousel from '../../components/HeroCarouel/HeroCarousel'
+
 
 const Home = () => {
     return (
@@ -11,13 +14,27 @@ const Home = () => {
                 <Header />
             </div>
             <div className='min-h-screen '>
-                <HeaderCarousel/>
-                <CategoryCarousel/>
-                <CategoryCarousel/>
-                <CategoryCarousel/>
-                <CategoryCarousel/>
-
-
+                <HeaderCarousel />
+                <CategoryCarousel />
+                <CategoryCarousel />
+                <RankingCarousel />
+                <CategoryCarousel />
+                <CategoryCarousel />
+                <HeroCarousel />
+                <CategoryCarousel />
+                <CategoryCarousel />
+                <CategoryCarousel />
+                <HeroCarousel />
+                <CategoryCarousel />
+                <CategoryCarousel />
+                <CategoryCarousel />
+                <CategoryCarousel />
+                <CategoryCarousel />
+                <CategoryCarousel />
+                <CategoryCarousel />
+                <CategoryCarousel />
+                <CategoryCarousel />
+                <CategoryCarousel />
             </div>
             <div>
                 <Footer />
