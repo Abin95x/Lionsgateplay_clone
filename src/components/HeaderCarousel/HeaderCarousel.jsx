@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { MdArrowBackIos, MdArrowForwardIos } from "react-icons/md";
 import { one, two, three, four, five, six, seven, eight } from '../../utils/CarouselImg';
 
@@ -7,6 +7,15 @@ function HeroCarousel() {
 
     const [mouseHover, setMouseHover] = useState(false);
     const carouselRef = useRef(null);
+    
+    // Automatically scroll every 5 seconds
+    useEffect(() => {
+        const interval = setInterval(() => {
+            handleNextClick();
+        }, 5000);
+
+        return () => clearInterval(interval); // Cleanup on unmount
+    }, []);
 
     const handleMouseEnter = () => setMouseHover(true);
     const handleMouseLeave = () => setMouseHover(false);
