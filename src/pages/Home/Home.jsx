@@ -18,14 +18,14 @@ const Home = () => {
             <div className='min-h-screen '>
                 <HeaderCarousel />
                 <CategoryCarousel title={'Premieres Of Lionsgate Play'} query={'boys'}/>
-                <CategoryCarousel title={'Debutants Showcase'} query={'boys'}/>
+                <CategoryCarousel title={'Debutants Showcase'} query={'girls'}/>
                 <RankingCarousel title={'Top 10 in India'} query={'top'}/>
                 <CategoryCarousel title={'Watch Next'} query={'boys'}/>
-                <CategoryCarousel title={'Premi'} query={'boys'}/>
+                <CategoryCarousel title={'Trending This Week'} query={'boys'}/>
                 <HeroCarousel title={'Coming Soon on Lionsgate Play'} query={'girls'} />
                 <CategoryCarousel title={'Trending This Week'} query={'boys'}/>
                 <CategoryCarousel title={'Watch Next'} query={'next'}/>
-                <HeroCarousel title={'Dubbed For You'} query={'dub'}/>
+                <HeroCarousel title={'Dubbed For You'} query={'anime'}/>
                 <CategoryCarousel title={'Best Actors'} query={'actors'}/>
                 <CategoryCarousel title={'Sportsflix'} query={'sports'}/>
                 <CategoryCarousel title={'Women In Action'} query={'women'}/>

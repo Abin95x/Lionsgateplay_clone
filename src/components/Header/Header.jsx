@@ -5,7 +5,7 @@ import MobileNav from '../MobileNav/MobileNav';
 
 const Header = () => {
   return (
-    <nav className="flex items-center box-border bg-transparent">
+    <nav className="flex items-center box-border bg-[#09262c91]">
       <div className="mx-[8.125rem] md:ml-5 lg:mx-[3.625rem] w-full h-16 md:h-[4.895rem]">
         <div className="flex justify-between text-white text-sm">
           <MobileNav/>

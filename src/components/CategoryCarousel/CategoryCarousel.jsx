@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md';
 
-const CategoryCarousel = ({title,query}) => {
+const CategoryCarousel = ({ title, query }) => {
     const [data, setData] = useState([]);
+    const [loading, setLoading] = useState({});
     const carouselRef = useRef(null);
 
     useEffect(() => {
@@ -14,12 +15,17 @@ const CategoryCarousel = ({title,query}) => {
                 return res.json();
             })
             .then((data) => {
-                setData(data.map(item => item?.show?.image?.original));
+                const images = data.map(item => item?.show?.image?.original);
+                setData(images);
+                setLoading(images.reduce((acc, image, index) => {
+                    acc[image] = true;
+                    return acc;
+                }, {}));
             })
             .catch((err) => {
                 console.error(err);
             });
-    }, []);
+    }, [query]);
 
     const handlePrevClick = () => {
         if (carouselRef.current) {
@@ -37,6 +43,13 @@ const CategoryCarousel = ({title,query}) => {
                 behavior: 'smooth'
             });
         }
+    };
+
+    const handleImageLoad = (src) => {
+        setLoading(prevLoading => ({
+            ...prevLoading,
+            [src]: false
+        }));
     };
 
     return (
@@ -61,12 +74,16 @@ const CategoryCarousel = ({title,query}) => {
                         data.map((image, index) => (
                             <div
                                 key={index}
-                                className='carousel-item h-[120px] md:h-[200px] lg:h-[300px] hover:transition-transform duration-300 transform'
+                                className='carousel-item h-[120px] md:h-[200px] lg:h-[300px] relative'
                             >
+                                {loading[image] && (
+                                    <span className="loading loading-spinner bg-yellow-500 loading-md absolute inset-0 flex items-center justify-center z-10"></span>
+                                )}
                                 <img
                                     src={image}
                                     alt={`Carousel item ${index}`}
                                     className='rounded-xl object-cover w-full h-full transition-shadow duration-300 hover:shadow-lg hover:border-[#dcec18] border-2 border-transparent'
+                                    onLoad={() => handleImageLoad(image)}
                                 />
                             </div>
                         ))
@@ -75,7 +92,7 @@ const CategoryCarousel = ({title,query}) => {
                             <img
                                 src='https://via.placeholder.com/300'
                                 alt='Placeholder'
-                                className='rounded-lg object-cover w-full h-full transition-shadow duration-300 hover:shadow-lg hover:border-[#dcec18] border-4 border-transparent'
+                                className='rounded-lg object-cover w-full h-full transition-shadow duration-300 hover:shadow-lg hover:border-[#d1ff00] border-4 border-transparent'
                             />
                         </div>
                     )}
