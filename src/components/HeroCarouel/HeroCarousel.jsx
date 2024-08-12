@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md';
 
-const HeroCarousel = ({title, query}) => {
+const HeroCarousel = ({ title, query }) => {
     const [data, setData] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
     const carouselRef = useRef(null);
 
     useEffect(() => {
@@ -14,12 +15,33 @@ const HeroCarousel = ({title, query}) => {
                 return res.json();
             })
             .then((data) => {
-                setData(data.map(item => item.show.image.original));
+                const images = data.map(item => item.show.image.original);
+                setData(images);
+                setIsLoading(true); // Set loading to true while fetching images
             })
             .catch((err) => {
                 console.error(err);
+                setIsLoading(false); // Set loading to false on error
             });
-    }, []);
+    }, [query]);
+
+    useEffect(() => {
+        if (data.length > 0) {
+            // Check if all images are loaded
+            const imagePromises = data.map(src =>
+                new Promise((resolve, reject) => {
+                    const img = new Image();
+                    img.src = src;
+                    img.onload = resolve;
+                    img.onerror = reject;
+                })
+            );
+
+            Promise.all(imagePromises)
+                .then(() => setIsLoading(false))
+                .catch(() => setIsLoading(false));
+        }
+    }, [data]);
 
     const handlePrevClick = () => {
         if (carouselRef.current) {
@@ -42,7 +64,7 @@ const HeroCarousel = ({title, query}) => {
     return (
         <div className='relative ml-5 mb-12 md:ml-6 lg:ml-14'>
             <h1 className='text-white text-base md:text-lg lg:text-2xl'>
-               {title}
+                {title}
             </h1>
 
             <div className='relative group'>
@@ -57,11 +79,15 @@ const HeroCarousel = ({title, query}) => {
                     ref={carouselRef}
                     className='carousel carousel-center gap-1 w-full mt-4 bg-transparent space-x-4 overflow-x-auto'
                 >
-                    {data.length > 0 ? (
+                    {isLoading ? (
+                        <div className='w-full h-[162px] md:h-[120px] lg:h-[300px] flex items-center justify-center'>
+                            <span className="loading loading-spinner bg-yellow-500 loading-md"></span>
+                        </div>
+                    ) : data.length > 0 ? (
                         data.map((image, index) => (
                             <div
                                 key={index}
-                                className='carousel-item h-[162px] md:h-[120px] lg:h-[300px] w-[300px]  md:w-[230px] lg:w-[550px] hover:transition-transform duration-300 transform'
+                                className='carousel-item h-[162px] md:h-[120px] lg:h-[300px] w-[300px] md:w-[230px] lg:w-[550px] hover:transition-transform duration-300 transform'
                             >
                                 <img
                                     src={image}
