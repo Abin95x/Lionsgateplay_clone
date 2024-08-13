@@ -103,6 +103,8 @@ const HeroCarousel = ({ title, query }) => {
                                 alt='Placeholder'
                                 className='rounded-lg object-cover w-full h-full transition-shadow duration-300 hover:shadow-lg hover:border-[#d1ff00] border-4 border-transparent'
                             />
+                            <div className='absolute inset-0 bg-black opacity-0 transition-opacity duration-300 hover:opacity-50'><FaPlay /></div>
+
                         </div>
                     )}
                 </div>

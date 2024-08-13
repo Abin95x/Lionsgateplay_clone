@@ -96,8 +96,13 @@ const CategoryCarousel = ({ title, query }) => {
                                         alt={`movie`}
                                         className='object-cover w-full h-full transition-shadow duration-300 hover:shadow-lg'
                                     />
-                                    <div className='absolute inset-0 bg-black opacity-0 transition-opacity duration-300 hover:opacity-50'></div>
+                                    <div className='absolute inset-0 bg-black opacity-0 transition-opacity duration-300 hover:opacity-50'>
+                                        <div className=' hidden md:block absolute bottom-3 left-3 text-[#dcec18]'>
+                                            <FaPlay className='text-2xl ' />
+                                        </div>
+                                    </div>
                                 </div>
+
                             </div>
                         ))
                     ) : (
