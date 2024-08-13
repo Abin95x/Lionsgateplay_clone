@@ -45,16 +45,16 @@ function HeroCarousel() {
         <div
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            className="relative flex items-center justify-center w-full px-4 lg:px-0 mb-20"
+            className="relative flex items-center justify-center w-full px-0 mb-20"
         >
             <button
                 className={`${mouseHover ? 'block' : 'hidden'} 
-        flex justify-center items-center 
-        absolute left-2 md:left-4 lg:left-5 
-        top-1/2 transform -translate-y-1/2 
-        p-2 bg-gray-900 text-white 
-        h-8 w-8 md:h-10 md:w-10 rounded-full
-        z-10`}
+                flex justify-center items-center 
+                absolute left-2 md:left-4 lg:left-5 
+                top-1/2 transform -translate-y-1/2 
+                p-2 bg-gray-900 text-white 
+                h-8 w-8 md:h-10 md:w-10 rounded-full
+                z-10`}
                 onClick={handlePrevClick}
             >
                 <MdArrowBackIos className="h-4 w-4 md:h-5 md:w-5" />
