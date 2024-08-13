@@ -76,13 +76,13 @@ function HeroCarousel() {
                         />
                         <div className="absolute md:block hidden md:bottom-5 md:right-5 lg:bottom-10 lg:right-10   space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <div className="flex items-center gap-5">
-                                <div>
+                                <div className=" flex flex-col items-center">
                                     <FaPlay className="text-[#d1ff00] md:2xl lg:text-5xl cursor-pointer" />
-                                    <h1>PLAY</h1>
+                                    <h3 className="md:text-xs lg:text-xl">PLAY</h3>
                                 </div>
-                                <div>
-                                    <IoVideocamSharp className="text-[#d1ff00] md:2xl lg:text-6xl cursor-pointer" />
-                                    <h1>TRAILER</h1>
+                                <div className=" flex flex-col items-center">
+                                    <IoVideocamSharp className="text-[#d1ff00] md:2xl lg:text-5xl cursor-pointer" />
+                                    <h3 className="md:text-xs lg:text-xl" >TRAILER</h3>
                                 </div>
                             </div>
                         </div>
