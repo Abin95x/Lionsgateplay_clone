@@ -78,11 +78,11 @@ function HeroCarousel() {
                             <div className="flex items-center gap-5">
                                 <div>
                                     <FaPlay className="text-[#d1ff00] md:2xl lg:text-5xl cursor-pointer" />
-                                    <h1>Play</h1>
+                                    <h1>PLAY</h1>
                                 </div>
                                 <div>
                                     <IoVideocamSharp className="text-[#d1ff00] md:2xl lg:text-6xl cursor-pointer" />
-                                    <h1>Triler</h1>
+                                    <h1>TRAILER</h1>
                                 </div>
                             </div>
                         </div>
