@@ -74,14 +74,16 @@ function HeroCarousel() {
                             className="rounded-box w-full h-full object-cover border-4 border-transparent group-hover:border-[#d1ff00] transition-border duration-300"
                             alt={`Carousel item ${index + 1}`}
                         />
-                        <div className="absolute bottom-10 right-10 flex items-center gap-5 space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <div>
-                                <FaPlay className="text-[#d1ff00] text-5xl cursor-pointer" />
-                                <h1>Play</h1>
-                            </div>
-                            <div>
-                                <IoVideocamSharp className="text-[#d1ff00] text-6xl cursor-pointer" />
-                                <h1>Triler</h1>
+                        <div className="absolute md:block hidden md:bottom-5 md:right-5 lg:bottom-10 lg:right-10   space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div className="flex items-center gap-5">
+                                <div>
+                                    <FaPlay className="text-[#d1ff00] md:2xl lg:text-5xl cursor-pointer" />
+                                    <h1>Play</h1>
+                                </div>
+                                <div>
+                                    <IoVideocamSharp className="text-[#d1ff00] md:2xl lg:text-6xl cursor-pointer" />
+                                    <h1>Triler</h1>
+                                </div>
                             </div>
                         </div>
                     </div>
